@@ -11,9 +11,16 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
+            steps { HEAD
                 sh 'php -v'
                 sh 'composer install --no-interaction --prefer-dist'
+
+                sh '''
+                    cp .env.example .env
+                    composer install --no-interaction --prefer-dist
+                    php artisan key:generate
+                '''
+ 06eec78 (Add Laravel Jenkins pipeline)
             }
         }
 
@@ -25,7 +32,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
+<<<<<<< HEAD
                 echo 'Laravel deployment configuration comes next'
+=======
+                echo 'Build and tests successful!'
+>>>>>>> 06eec78 (Add Laravel Jenkins pipeline)
             }
         }
     }
